@@ -1,6 +1,6 @@
 import React from 'react';
 import {} from 'native-base';
-import {View, Text, StatusBar} from 'react-native';
+import {View, Text, StatusBar, Platform} from 'react-native';
 import {DangerZone} from 'expo';
 
 const {Lottie} = DangerZone;
@@ -16,6 +16,7 @@ class SplashScreen extends React.Component {
     }
 
     render() {
+        let scale = Platform.OS==='ios' ? 0.5 : 3;
         return (
             <View style={{backgroundColor:'#44F',  flex:1, alignItems: 'center', justifyContent:'center'}} >
                 <StatusBar hidden />
@@ -24,7 +25,7 @@ class SplashScreen extends React.Component {
                         ref={animation => {
                         this.animation = animation;
                         }}
-                        style={{height: 400, width: 400, transform:[{scale:3}]  }}
+                        style={{height: 400, width: 400,transform:[{scale}] }}
                         source={require('../assets/animation/soda_loader.json')}
                     />
                 </View>
