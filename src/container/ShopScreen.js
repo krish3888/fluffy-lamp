@@ -71,9 +71,9 @@ class ShopScreen extends React.Component {
                                 </View>
                             </View>
                             <View style={{flex:1, flexDirection:'row', backgroundColor:'#44F'}} >
-                                <TouchableOpacity style={{flex:1, flexDirection:'row', padding:15}}>
+                                <TouchableOpacity style={{flex:1, flexDirection:'row', padding:15}} onPress={()=>{this.props.navigation.navigate('Review')}} >
                                     <View style={{flex:5, flexDirection:'row', justifyContent:'center'}}>
-                                        <Text style={{fontFamily:'Nunito-ExtraBold', fontSize:18, color:'white'}} >Proceed to checkout </Text>
+                                        <Text style={{fontFamily:'Nunito-ExtraBold', fontSize:18, color:'white'}} >Review Order </Text>
                                     </View>
                                     <View style={{flex:1, flexDirection:'row', justifyContent:'center'}}>
                                         <Icon name="ios-arrow-forward" style={{color:'white'}} />

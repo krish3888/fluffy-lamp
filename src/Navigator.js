@@ -5,6 +5,9 @@ import LoginScreen from "./container/LoginScreen";
 import RegisterScreen from "./container/RegisterScreen";
 import HomeScreen from "./container/HomeScreen";
 import ShopScreen from "./container/ShopScreen";
+import ReviewScreen from "./container/ReviewOrder";
+import CheckoutScreen from "./container/CheckoutScreen";
+import InvoiceScreen from "./container/InvoiceScreen";
 // import ConsentScreen from "./screens/ConsentScreen";
 // import SignUpScreen from "./screens/SignUpScreen";
 // import AlmostThereScreen from "./screens/AlmostThereScreen";
@@ -22,6 +25,9 @@ const NavigationDetails = StackNavigator(
     Register : {screen: RegisterScreen},
     Home: {screen: HomeScreen },
     Shop: {screen: ShopScreen},
+    Review: {screen: ReviewScreen},
+    Checkout: {screen: CheckoutScreen},
+    Invoice: {screen: InvoiceScreen},
     // LoginAs: { screen: LoginAsScreen },
     // SignUp: { screen: SignUpScreen },
     SplashScreen: { screen: Splash },
