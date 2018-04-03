@@ -8,6 +8,7 @@ import ShopScreen from "./container/ShopScreen";
 import ReviewScreen from "./container/ReviewOrder";
 import CheckoutScreen from "./container/CheckoutScreen";
 import InvoiceScreen from "./container/InvoiceScreen";
+import SettingsScreen from "./container/SettingsScreen";
 // import ConsentScreen from "./screens/ConsentScreen";
 // import SignUpScreen from "./screens/SignUpScreen";
 // import AlmostThereScreen from "./screens/AlmostThereScreen";
@@ -28,6 +29,7 @@ const NavigationDetails = StackNavigator(
     Review: {screen: ReviewScreen},
     Checkout: {screen: CheckoutScreen},
     Invoice: {screen: InvoiceScreen},
+    Settings :{screen: SettingsScreen},
     // LoginAs: { screen: LoginAsScreen },
     // SignUp: { screen: SignUpScreen },
     SplashScreen: { screen: Splash },

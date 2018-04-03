@@ -15,7 +15,7 @@ class HomeScreen extends React.Component {
             <Container style={{flex:1}} >
                 {this.state.showModal && <StoreListModal onClose={()=>this.setState({showModal:false})} onSelectStore={()=>{this.setState({showModal:false}); this.props.navigation.navigate('Shop')}} />}
                 <View style={{flex:7, alignItems:'center', justifyContent:'center', marginTop:30 }} >
-                    <TouchableOpacity onPress={()=>{alert('user profile and wallet section');}} >
+                    <TouchableOpacity onPress={()=>{this.props.navigation.navigate('Settings')}} >
                         <Image source={require('../assets/images/user-avatar.png')}
                             style={{height:200, width: 200, borderRadius: 100 }} />
                     </TouchableOpacity>

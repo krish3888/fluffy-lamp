@@ -12,7 +12,8 @@ class InvoiceScreen extends React.Component {
             showModal:false
         }
     }
-      renderItem(item){
+    
+    renderItem(item){
     return (
       <View>
           <Item>
