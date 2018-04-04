@@ -1,6 +1,6 @@
 import React from 'react';
 import {Input, Button, Item, Icon, Content} from 'native-base';
-import {View, Text, StatusBar, Platform} from 'react-native';
+import {View, Text, StatusBar, Platform, TouchableOpacity} from 'react-native';
 import {DangerZone} from 'expo';
 
 const {Lottie} = DangerZone;
@@ -37,19 +37,29 @@ class RegisterScreen extends React.Component {
                                 <Input placeholder='email address' placeholderTextColor="#CCC"  style={{color:'#BBB'}} />
                             </Item>
 
-                            <Item rounded style={{width: '100%', backgroundColor:'white', marginTop:20}}>
+                            <Item rounded style={{width: '100%', backgroundColor:'white', marginTop:15}}>
                                 <Icon active name='lock' style={{color:"#CCC", marginLeft: 15}} />
                                 <Input secureTextEntry placeholder='password' placeholderTextColor="#CCC"  style={{color:'#AAA'}} />
                             </Item>
 
-                            <Item rounded style={{width: '100%', backgroundColor:'white', marginTop:20}}>
+                            <Item rounded style={{width: '100%', backgroundColor:'white', marginTop:15}}>
                                 <Icon active name='lock' style={{color:"#CCC", marginLeft: 15}} />
                                 <Input secureTextEntry placeholder='confirm password' placeholderTextColor="#CCC"  style={{color:'#AAA'}} />
                             </Item>
+                            <View style={{width: '100%', marginTop:10, flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
+                                <TouchableOpacity style={{flex:1, flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
+                                    <Icon name="ios-radio-button-on" style={{color:'#FFF'}} />
+                                    <Text style={{fontFamily:'Nunito-SemiBold', color:'white', fontSize:16}}>  User</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={{flex:1, flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
+                                    <Icon name="ios-radio-button-off" style={{color:'#FFF'}} />
+                                    <Text style={{fontFamily:'Nunito-SemiBold', color:'white', fontSize:16}}>  Store</Text>
+                                </TouchableOpacity>
+                            </View>
 
-                            <View style={{flexDirection:'row', alignItems:'center', justifyContent:'center', marginTop:15}} >
+                            <View style={{flexDirection:'row', alignItems:'center', justifyContent:'center', marginTop:5}} >
                                 <View style={{flex:1, alignItems:'flex-end'}} >
-                                    <Text style={{color:'white'}} >Already a user ? </Text>
+                                    <Text style={{fontFamily:'Nunito-Regular', color:'white', fontSize:14}} >Already a user ? </Text>
                                 </View>
                                 <View style={{flex:1}}>
                                     <Button transparent onPress={()=>{this.props.navigation.navigate('Login');}} >
@@ -64,7 +74,9 @@ class RegisterScreen extends React.Component {
                                 </View>
                                 
                                 </View>
-                            <Button rounded style={{alignSelf:'center', backgroundColor:'white', marginTop: 15}} >
+                            <Button rounded style={{alignSelf:'center', backgroundColor:'white', marginTop: 15}}
+                                onPress={()=>{this.props.navigation.navigate('RetailerHome')}}
+                            >
                                 <Text style={{ paddingLeft: 30, fontFamily:'Nunito-Regular', color:'#AAA', fontSize:18}} >Register</Text>
                                 <Icon name='ios-arrow-forward-outline' style={{color:'#CCC', paddingRight:10}} />
                             </Button>
