@@ -1,7 +1,8 @@
 import React from 'react';
-import {} from 'native-base';
+import {connect} from 'react-redux';
 import {View, Text, StatusBar, Platform} from 'react-native';
 import {DangerZone} from 'expo';
+import LoginActions from '../redux/LoginRedux';
 
 const {Lottie} = DangerZone;
 
@@ -12,7 +13,9 @@ class SplashScreen extends React.Component {
 
     componentDidMount(){
         this.animation.play();
-        setTimeout(()=>this.props.navigation.navigate('Login'), 3000);
+        setTimeout(()=>{
+            this.props.authStateChanged();
+        }, 1500);
     }
 
     render() {
@@ -35,4 +38,10 @@ class SplashScreen extends React.Component {
     }
 }
 
-export default SplashScreen;
+const bindActions = (dispatch)=>{
+    return {
+        authStateChanged: ()=>dispatch(LoginActions.authStateChanged())
+    };
+}
+
+export default connect(null,bindActions)(SplashScreen);
