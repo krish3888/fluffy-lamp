@@ -45,4 +45,17 @@ export class User {
         });
     }
 
+    static login(email, password) {
+        return new Promise((resolve, reject) => {
+            firebaseApp.auth()
+            .signInWithEmailAndPassword(email, password)
+            .then((user) => {
+                resolve(user.toJSON());
+            }).catch((error) => {
+                reject(error);
+            });
+        });
+    }
+
+
 }

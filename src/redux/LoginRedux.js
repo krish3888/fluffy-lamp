@@ -28,7 +28,7 @@ export const INITIAL_STATE = Immutable({
 /* ------------- Reducers ------------- */
 
 export const requestLogin = (state = INITIAL_STATE, action) =>  {
-  return {...state};
+  return {...state, loading: true};
 };
 
 export const requestRegister = (state = INITIAL_STATE, action) =>  {

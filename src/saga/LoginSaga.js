@@ -25,7 +25,12 @@ function* requestLogoutData(action) {
 }
 
 function* requestLoginData(action) {
-  
+  try {
+    const user = yield call(UserServices.login, action.email, action.password);
+    yield put(LoginActions.registerComplete());
+  } catch(err) {
+    alert(err.toString());
+  }
 }
 
 function* loginRequestListener() {

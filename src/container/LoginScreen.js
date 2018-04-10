@@ -1,13 +1,27 @@
 import React from 'react';
-import {Input, Button, Item, Icon, Content} from 'native-base';
+import {connect} from 'react-redux';
+import {Input, Button, Item, Icon, Content, Spinner} from 'native-base';
 import {View, Text, StatusBar, Platform} from 'react-native';
 import {DangerZone} from 'expo';
+import LoginActions from '../redux/LoginRedux';
 
 const {Lottie} = DangerZone;
 
 class LoginScreen extends React.Component {
     constructor(props) {
         super(props);
+        this.state={
+            email:null,
+            password:null
+        }
+    }
+
+    validate() {
+        if (this.state.email && this.state.password) {
+            this.props.requestLogin(this.state.email, this.state.password);
+        } else {
+            alert('all fields are mandatory');
+        }
     }
 
     componentDidMount(){
@@ -34,19 +48,30 @@ class LoginScreen extends React.Component {
                         <View  style={{flex:1, width:'80%'}}>
                             <Item rounded style={{width: '100%', backgroundColor:'white'}}>
                                 <Icon active name='person' style={{color:"#CCC", marginLeft: 15}} />
-                                <Input placeholder='email address' placeholderTextColor="#CCC"  style={{color:'#BBB'}} />
+                                <Input
+                                    placeholder='email address'
+                                    placeholderTextColor="#CCC"
+                                    style={{color:'#BBB'}}
+                                    onChangeText={(text)=>this.setState({email:text})}
+                                />
                             </Item>
 
                             <Item rounded style={{width: '100%', backgroundColor:'white', marginTop:20}}>
                                 <Icon active name='lock' style={{color:"#CCC", marginLeft: 15}} />
-                                <Input secureTextEntry placeholder='password' placeholderTextColor="#CCC"  style={{color:'#AAA'}} />
+                                <Input
+                                    secureTextEntry
+                                    placeholder='password'
+                                    placeholderTextColor="#CCC"
+                                    style={{color:'#AAA'}}
+                                    onChangeText={(text)=>this.setState({password:text})}
+                                />
                             </Item>
                             <View style={{flexDirection:'row', alignItems:'center', justifyContent:'center', marginTop:20}} >
                                 <View style={{flex:1, alignItems:'flex-end'}} >
                                     <Text style={{color:'white'}} >New User ? </Text>
                                 </View>
                                 <View style={{flex:1}}>
-                                    <Button transparent onPress={()=>{this.props.navigation.navigate('Register')}} >
+                                    <Button transparent onPress={()=>this.props.navigation.navigate('Register')} >
                                         <Text style={{textDecorationStyle:'solid', textDecorationColor:'white', textDecorationLine:'underline', color:'white' }} >Register Here</Text>
                                     </Button>
                                 </View>
@@ -55,10 +80,13 @@ class LoginScreen extends React.Component {
                             <Button 
                                 rounded
                                 style={{alignSelf:'center', backgroundColor:'white', marginTop: 30}}
-                                onPress={()=>{this.props.navigation.navigate('Home')}}
+                                onPress={()=>this.validate()}
+                                disabled={this.props.loading}
                             >
                                 <Text style={{ paddingLeft: 30, fontFamily:'Nunito-Regular', color:'#AAA', fontSize:18}} >Login</Text>
-                                <Icon name='ios-arrow-forward-outline' style={{color:'#CCC', paddingRight:10}} />
+                                {this.props.loading ?
+                                    <Spinner small color='#BBB'/>
+                                    :<Icon name='ios-arrow-forward-outline' style={{color:'#CCC', paddingRight:10}} />}
                             </Button>
                         </View>
                     </View>
@@ -68,4 +96,16 @@ class LoginScreen extends React.Component {
     }
 }
 
-export default LoginScreen;
+const mapStateToProps = (state)=>{
+    return {
+        loading: state.login.loading
+    };
+}
+
+const bindActions = (dispatch) => {
+    return {
+        requestLogin:(email, password)=>dispatch(LoginActions.requestLogin(email, password))
+    };
+}
+
+export default connect(mapStateToProps, bindActions)(LoginScreen);
