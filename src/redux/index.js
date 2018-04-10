@@ -6,6 +6,7 @@ export default (onCompletion) => {
   /* ------------- Assemble The Reducers ------------- */
   const appReducer = combineReducers({
     login: require('./LoginRedux').reducer,
+    shop: require('./ShopRedux').reducer,
   });
 
   const rootReducer = (state, action) => {

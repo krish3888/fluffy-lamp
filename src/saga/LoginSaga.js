@@ -48,7 +48,7 @@ function* logoutRequestListener() {
 }
 
 export default function* loginSaga() {
-  // yield fork(loginRequestListener);
+  yield fork(loginRequestListener);
   yield fork(registerRequestListener);
   yield fork(authStatusListener);
   yield fork(logoutRequestListener);
