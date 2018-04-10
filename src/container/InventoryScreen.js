@@ -90,7 +90,7 @@ class InventoryScreen extends React.Component {
                             />
                         </View>
                         <View style={{ justifyContent:'center', alignItems:'center', flexDirection:'row', marginHorizontal:10, marginVertical:5}} >
-                            <TouchableOpacity style={{flex:1, flexDirection:'row', borderColor:'#BBB', borderRadius:25, height:36, borderWidth:1, backgroundColor:'#DDD'}}>
+                            <TouchableOpacity style={{flex:1, flexDirection:'row', borderColor:'#BBB', borderRadius:25, height:36, borderWidth:1, backgroundColor:'#DDD', justifyContent:'center', alignItems:'center'}}>
                                 <Text style={{fontFamily:'Nunito-SemiBold', fontSize:16, color:'#44F', textAlign:'center'}} >Add item</Text>
                             </TouchableOpacity>
                         </View>

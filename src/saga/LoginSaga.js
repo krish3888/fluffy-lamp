@@ -17,15 +17,7 @@ function* requestRegisterData(action) {
 }
 
 function* authStatusChanged(action) {
-  const userObj = yield call(UserServices.subscribeListeners);
-  if (userObj) {
-    // navigate to home
-    navigate('Home');
-  } else {
-    // alert('here in else')
-    // navigate to register screen
-    navigate('Register');
-  }
+  yield call(UserServices.subscribeListeners);
 }
 
 function* requestLogoutData(action) {

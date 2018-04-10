@@ -8,6 +8,7 @@ const {Types, Creators} = createActions({
   requestRegister: ['email','password', 'userType'],
   registerComplete:[],
   requestLogout: null,
+  fetchedCurrentUser:['userObj'],
   authStateChanged: ['userObj'], 
   setLoginError:['error']
 });
@@ -42,11 +43,16 @@ export const setLoginError = (state = INITIAL_STATE, action) => {
   return { ...state, loginError:action.error };
 };
 
+export const fetchedCurrentUser = (state = INITIAL_STATE, action) => {
+  return { ...state, currentUser:action.userObj };
+};
+
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.REQUEST_LOGIN]: requestLogin,
   [Types.REQUEST_REGISTER]: requestRegister,
   [Types.SET_LOGIN_ERROR]: setLoginError,
-  [Types.REGISTER_COMPLETE]: registerComplete
+  [Types.REGISTER_COMPLETE]: registerComplete,
+  [Types.FETCHED_CURRENT_USER]: fetchedCurrentUser
 });

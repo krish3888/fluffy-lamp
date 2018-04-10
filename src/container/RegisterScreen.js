@@ -1,5 +1,5 @@
 import React from 'react';
-import {Input, Button, Item, Icon, Content} from 'native-base';
+import {Input, Button, Item, Icon, Content, Spinner} from 'native-base';
 import {View, Text, StatusBar, Platform, TouchableOpacity} from 'react-native';
 import {DangerZone} from 'expo';
 import {connect} from 'react-redux';
@@ -110,9 +110,10 @@ class RegisterScreen extends React.Component {
                                 </View>
                             <Button rounded style={{alignSelf:'center', backgroundColor:'white', marginTop: 15}}
                                 onPress={()=>{this.validate()}}
+                                disabled={this.props.loading}
                             >
                                 <Text style={{ paddingLeft: 30, fontFamily:'Nunito-Regular', color:'#AAA', fontSize:18}} >Register</Text>
-                                <Icon name='ios-arrow-forward-outline' style={{color:'#CCC', paddingRight:10}} />
+                                {this.props.loading? <Spinner small color='#BBB' /> : <Icon name='ios-arrow-forward-outline' style={{color:'#CCC', paddingRight:10}} />}
                             </Button>
                         </View>
                     </View>
@@ -122,10 +123,16 @@ class RegisterScreen extends React.Component {
     }
 }
 
+const mapStateToProps = state => {
+    return {
+        loading: state.login.loading
+    };
+}
+
 const bindActions = (dispatch) =>{
     return {
         requestRegister: (email, password, userType)=>dispatch(LoginActions.requestRegister(email,password,userType))
     };
 }
 
-export default connect(null, bindActions)(RegisterScreen);
+export default connect(mapStateToProps, bindActions)(RegisterScreen);
