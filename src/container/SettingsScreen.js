@@ -2,6 +2,8 @@ import React from 'react';
 import {Content, Container, Input, Button} from 'native-base';
 import StoreListModal from '../components/StoreListModal';
 import {View, Text, StatusBar, Platform, Image, TouchableOpacity} from 'react-native';
+import {connect} from 'react-redux';
+import LoginActions from '../redux/LoginRedux';
 
 class SettingsScreen extends React.Component {
     constructor(props){
@@ -25,11 +27,14 @@ class SettingsScreen extends React.Component {
                         <View style={{flex:1, alignItems:'flex-end', justifyContent:'center', flexDirection:'row', marginTop:25}} >
                             <Input
                                 style={{flex:1, fontFamily:'Nunito-SemiBold', fontSize:16, color:'#44F', textAlign:'center', height:36, borderWidth:1, borderRadius:20, borderColor:'#CCC'}}
-                                defaultValue='display name'
+                                defaultValue={ _.get(this.props,'user.displayName','Display name')}
                             />
                         </View>
                         <View style={{flex:1, alignItems:'center', justifyContent:'center', flexDirection:'row'}} >
-                            <Button style={{flex:1, borderRadius:25, justifyContent:'center', height:36, marginTop:10, backgroundColor:'#DADADA'}} >
+                            <Button
+                                style={{flex:1, borderRadius:25, justifyContent:'center', height:36, marginTop:10, backgroundColor:'#DADADA'}}
+                                onPress={()=>{this.props.requestLogout()}}
+                            >
                                 <Text style={{fontFamily:'Nunito-SemiBold', fontSize:16, color:'#44F', textAlign:'center',}}>logout</Text>
                             </Button>
                         </View>
@@ -38,7 +43,7 @@ class SettingsScreen extends React.Component {
                 <View style={{flex:10, alignItems:'center', justifyContent:'center' }} >
                     <View style={{flex:2, alignItems:'center', justifyContent:'center'}} >
                         <Text style={{ fontFamily:'Nunito-SemiBold', fontSize:20, color:'#44F'}} >your wallet balance is: </Text>
-                        <Text style={{ fontFamily:'Nunito-SemiBold', fontSize:30, color:'#44F'}} >₹100</Text>
+                        <Text style={{ fontFamily:'Nunito-SemiBold', fontSize:30, color:'#44F'}} >₹{_.get(this.props,'user.walletBalance',0)}</Text>
                     </View>
                     <View style={{flex:10, alignItems:'center', width:'100%'}}>
                         <View style={{flex:1, flexDirection:'row', justifyContent:'center', alignItems:'center'}} >
@@ -101,5 +106,16 @@ class SettingsScreen extends React.Component {
         );
     }
 }
+const mapStateToProps = (state)=>{
+    return {
+        user: state.login.currentUser,
+    };
+}
 
-export default SettingsScreen;
+const bindActions = dispatch => {
+    return {
+        requestLogout: ()=>dispatch(LoginActions.requestLogout())
+    };
+}
+
+export default connect(mapStateToProps, bindActions)(SettingsScreen);

@@ -48,7 +48,7 @@ class StoreListModal extends React.Component {
 
   render() {
     return (
-      <Modal style={{ flex: 1 }} transparent visible>
+      <Modal style={{ flex: 1 }} transparent visible onRequestClose={()=>{}} >
         <StatusBar hidden />
         <View style={{flex:1, backgroundColor:'rgba(0,0,0,0.4)', alignItems: 'center', justifyContent: 'center'}} >
           <View style={{flex:1, width: '70%', marginTop:'30%', height:'30%'}} >

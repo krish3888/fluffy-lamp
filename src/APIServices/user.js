@@ -57,5 +57,15 @@ export class User {
         });
     }
 
-
+    static logout() {
+        return new Promise((resolve, reject) => {
+            firebaseApp.auth()
+            .signOut()
+            .then(() => {
+                resolve();
+            }).catch((error) => {
+                reject(error);
+            });
+        });
+    }
 }

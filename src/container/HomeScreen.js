@@ -1,5 +1,7 @@
 import React from 'react';
 import {Content, Container} from 'native-base';
+import {connect} from 'react-redux';
+import LoginActions from '../redux/LoginRedux';
 import StoreListModal from '../components/StoreListModal';
 import {View, Text, StatusBar, Platform, Image, TouchableOpacity} from 'react-native';
 
@@ -21,12 +23,12 @@ class HomeScreen extends React.Component {
                     </TouchableOpacity>
                 </View>
                 <View style={{flex:1, alignItems:'center', justifyContent:'center'}} >
-                    <Text style={{padding:5, fontFamily:'Nunito-SemiBold', fontSize:16, color:'#44F'}} >Display name</Text>
+                    <Text style={{padding:5, fontFamily:'Nunito-SemiBold', fontSize:16, color:'#44F'}} >{ _.get(this.props,'user.displayName','Display name')}</Text>
                 </View>
                 <View style={{flex:10, alignItems:'center', justifyContent:'center' }} >
                     <View style={{flex:3, alignItems:'center', justifyContent:'center'}} >
                         <Text style={{padding:5, fontFamily:'Nunito-SemiBold', fontSize:20, color:'#44F'}} >your wallet balance is: </Text>
-                        <Text style={{padding:5, fontFamily:'Nunito-SemiBold', fontSize:40, color:'#44F'}} >₹100</Text>
+                        <Text style={{padding:5, fontFamily:'Nunito-SemiBold', fontSize:40, color:'#44F'}} >₹{_.get(this.props,'user.walletBalance',0)}</Text>
                     </View>
                     <View style={{flex:3}}>
                         <TouchableOpacity 
@@ -42,4 +44,16 @@ class HomeScreen extends React.Component {
     }
 }
 
-export default HomeScreen;
+const mapStateToProps = (state)=>{
+    return {
+        user: state.login.currentUser,
+    };
+}
+
+const bindActions = dispatch => {
+    return {
+        
+    };
+}
+
+export default connect(mapStateToProps, bindActions)(HomeScreen);

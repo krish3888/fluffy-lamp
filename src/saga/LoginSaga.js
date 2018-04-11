@@ -21,7 +21,12 @@ function* authStatusChanged(action) {
 }
 
 function* requestLogoutData(action) {
-
+  try{
+    yield call(UserServices.logout)
+    yield put({type:'USER_LOGOUT'});
+  } catch(err) {
+    alert(err.toString());
+  }
 }
 
 function* requestLoginData(action) {
