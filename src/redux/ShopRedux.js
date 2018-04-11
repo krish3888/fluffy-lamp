@@ -9,8 +9,8 @@ const {Types, Creators} = createActions({
   updatedProductList:[],
   requestLogout: null,
   fetchedProductList:['prodList'],
-  authStateChanged: ['userObj'], 
-  setLoginError:['error']
+  getShopList: [], 
+  fetchedShopList:['shopList']
 });
 
 export const ShopTypes = Types;
@@ -21,6 +21,7 @@ export default Creators;
 
 export const INITIAL_STATE = Immutable({
   prodList: [],
+  shopList: [],
   loading: false,
 });
 
@@ -38,8 +39,8 @@ export const updatedProductList = (state = INITIAL_STATE, action) =>  {
   return {...state, loading: false};
 };
 
-export const setLoginError = (state = INITIAL_STATE, action) => {
-  return { ...state, loginError:action.error };
+export const fetchedShopList = (state = INITIAL_STATE, action) => {
+  return { ...state, shopList:action.shopList };
 };
 
 export const fetchedProductList = (state = INITIAL_STATE, action) => {
@@ -51,7 +52,7 @@ export const fetchedProductList = (state = INITIAL_STATE, action) => {
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.GET_PRODUCT_LIST]: getProductList,
   [Types.UPDATE_PRODUCT_LIST]: updateProductList,
-  [Types.SET_LOGIN_ERROR]: setLoginError,
+  [Types.FETCHED_SHOP_LIST]: fetchedShopList,
   [Types.UPDATED_PRODUCT_LIST]: updatedProductList,
   [Types.FETCHED_PRODUCT_LIST]: fetchedProductList
 });

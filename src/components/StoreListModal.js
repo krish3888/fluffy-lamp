@@ -2,20 +2,17 @@ import React from "react";
 import {View, Modal, TextInput, FlatList, Text, TouchableOpacity,StatusBar } from "react-native";
 import {Icon} from 'native-base';
 import _ from 'lodash';
-// import {connect} from 'react-redux';
+import {connect} from 'react-redux';
 const list = [{name:'Big Bazaar'},{name:'D Mart'},{name:'V Mart'},{name:'Trends'},{name:'Big Bazaar'},{name:'D Mart'},{name:'V Mart'},{name:'Trends'}]
 class StoreListModal extends React.Component {
   constructor(props) {
     super(props);
   }
 
-  componentWillMount() {
-  }
-
   renderItem(item){
     return (
       <TouchableOpacity
-        onPress={()=>{this.props.onSelectStore();}}
+        onPress={()=>{this.props.onSelectStore(item.key);}}
         style={{
           flexDirection:'row',
           width:'90%',
@@ -63,7 +60,7 @@ class StoreListModal extends React.Component {
                   <View style={{height:'95%', marginTop:5}} >
                     <FlatList
                       showsVerticalScrollIndicator={true}
-                      data={list}
+                      data={this.props.shopList}
                       renderItem={({item})=>this.renderItem(item)}
                       keyExtractor={({index})=>index}
                     />
@@ -76,5 +73,11 @@ class StoreListModal extends React.Component {
     );
   }
 }
+const mapStateToProps = (state)=>{
+    return {
+        shopList: state.shop.shopList,
+    };
+}
 
-export default StoreListModal;
+
+export default connect(mapStateToProps,null)(StoreListModal);

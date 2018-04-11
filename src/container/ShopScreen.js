@@ -12,6 +12,10 @@ class ShopScreen extends React.Component {
             showModal:false
         }
     }
+
+    componentDidMount(){
+        console.log(this.props.navigation.state.params);
+    }
       renderItem(item){
     return (
       <View>

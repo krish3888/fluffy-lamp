@@ -2,6 +2,7 @@ import React from 'react';
 import {Content, Container} from 'native-base';
 import {connect} from 'react-redux';
 import LoginActions from '../redux/LoginRedux';
+import ShopActions from '../redux/ShopRedux';
 import StoreListModal from '../components/StoreListModal';
 import {View, Text, StatusBar, Platform, Image, TouchableOpacity} from 'react-native';
 
@@ -12,10 +13,13 @@ class HomeScreen extends React.Component {
             showModal:false
         }
     }
+    componentWillMount() {
+        this.props.getShopList();
+    }
     render() {
         return (
             <Container style={{flex:1}} >
-                {this.state.showModal && <StoreListModal onClose={()=>this.setState({showModal:false})} onSelectStore={()=>{this.setState({showModal:false}); this.props.navigation.navigate('Shop')}} />}
+                {this.state.showModal && <StoreListModal onClose={()=>this.setState({showModal:false})} onSelectStore={(shopId)=>{this.setState({showModal:false}); this.props.navigation.navigate('Shop', {shopId})}} />}
                 <View style={{flex:7, alignItems:'center', justifyContent:'center', marginTop:30 }} >
                     <TouchableOpacity onPress={()=>{this.props.navigation.navigate('Settings')}} >
                         <Image source={require('../assets/images/user-avatar.png')}
@@ -52,7 +56,7 @@ const mapStateToProps = (state)=>{
 
 const bindActions = dispatch => {
     return {
-        
+        getShopList:()=>dispatch(ShopActions.getShopList())
     };
 }
 

@@ -25,6 +25,15 @@ function* updateProductList(action) {
     }
 }
 
+function* getShopList(action) {
+  try {
+    const list = yield call(ShopServices.getShopList);
+    yield put(ShopActions.fetchedShopList(list));
+  } catch(err) {
+    alert(err.toString());
+  }
+}
+
 function* updateProductListListener() {
   yield takeLatest(ShopTypes.UPDATE_PRODUCT_LIST, updateProductList);
 }
@@ -33,7 +42,12 @@ function* getProductListListener() {
   yield takeLatest(ShopTypes.GET_PRODUCT_LIST, getProductList);
 }
 
+function* getShopListListener() {
+  yield takeLatest(ShopTypes.GET_SHOP_LIST, getShopList);
+}
+
 export default function* shopSaga() {
   yield fork(getProductListListener);
+  yield fork(getShopListListener);
   yield fork(updateProductListListener);
 }
