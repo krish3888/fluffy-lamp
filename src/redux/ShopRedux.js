@@ -10,7 +10,9 @@ const {Types, Creators} = createActions({
   requestLogout: null,
   fetchedProductList:['prodList'],
   getShopList: [], 
-  fetchedShopList:['shopList']
+  fetchedShopList:['shopList'],
+  getScannedProduct:['shopId', 'barcodeNum'],
+  setCurrentProduct:['product']
 });
 
 export const ShopTypes = Types;
@@ -22,6 +24,7 @@ export default Creators;
 export const INITIAL_STATE = Immutable({
   prodList: [],
   shopList: [],
+  currentProduct:null,
   loading: false,
 });
 
@@ -47,6 +50,18 @@ export const fetchedProductList = (state = INITIAL_STATE, action) => {
   return { ...state, prodList:action.prodList, loading:false };
 };
 
+export const getScannedProduct = (state = INITIAL_STATE, action) =>  {
+  return {...state, loading: true};
+};
+
+export const setCurrentProduct = (state = INITIAL_STATE, action) => {
+  if(action.product){
+    return { ...state, currentProduct:action.product, loading:false };
+  } else {
+    return { ...state, currentProduct:null, loading:false };    
+  }
+};
+
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
@@ -54,5 +69,7 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.UPDATE_PRODUCT_LIST]: updateProductList,
   [Types.FETCHED_SHOP_LIST]: fetchedShopList,
   [Types.UPDATED_PRODUCT_LIST]: updatedProductList,
-  [Types.FETCHED_PRODUCT_LIST]: fetchedProductList
+  [Types.FETCHED_PRODUCT_LIST]: fetchedProductList,
+  [Types.SET_CURRENT_PRODUCT]: setCurrentProduct,
+  [Types.GET_SCANNED_PRODUCT]:getScannedProduct,
 });
