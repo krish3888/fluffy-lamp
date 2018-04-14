@@ -9,14 +9,12 @@ class ShopScreen extends React.Component {
     constructor(props){
         super(props);
         this.state={
-            showModal:false,
             cartList:[],
             cartTotal:0
         }
     }
 
     componentDidMount(){
-        console.log(this.props.navigation.state.params);
         this.props.setCurrentProduct();
     }
 
@@ -35,35 +33,57 @@ class ShopScreen extends React.Component {
         }
     }
 
-    renderItem(item){
+    onIncQty(item, index) {
+        if (item.orderQty<item.qty) {
+            let newList = this.state.cartList;
+            newList[index] = {...item, orderQty: item.orderQty+1, orderPrice: item.orderPrice+item.price}
+            this.setState({cartList: _.cloneDeep(newList), cartTotal: this.state.cartTotal+item.price});
+        }
+    }
+
+    onDecQty(item, index) {
+        if (item.orderQty>0) {
+            let newList = this.state.cartList;
+            newList[index] = {...item, orderQty: item.orderQty-1, orderPrice: item.orderPrice-item.price}
+            this.setState({cartList: _.cloneDeep(newList), cartTotal: this.state.cartTotal-item.price});
+        }
+    }
+
+    renderItem(item, index){
         return (
             <View>
                 <Item>
                     <Left style={{flex:7 }} >
-                    <Text style={{
-                        flex:5,
-                        fontFamily:'Nunito-SemiBold',
-                        fontSize:18,
-                        color:'black',
-                        margin:10,
-                    }}
-                    numberOfLines={1}
-                    ellipsizeMode='tail'
-                    >
-                    {item.name}
-                    </Text>
+                        <Text style={{
+                            flex:5,
+                            fontFamily:'Nunito-SemiBold',
+                            fontSize:18,
+                            color:'black',
+                            margin:10,
+                        }}
+                        numberOfLines={1}
+                        ellipsizeMode='tail'
+                        >
+                        {item.name}
+                        </Text>
                     </Left>
                     <Body style={{flex:3, flexDirection:'row', justifyContent:'center', alignItems:'center', marginHorizontal:10 }} >
-                        <TouchableOpacity style={{flex:1, borderWidth:1, alignItems:'center', borderRadius:7 }} >
+                        <TouchableOpacity
+                            style={{flex:1, borderWidth:1, alignItems:'center', borderRadius:7 }}
+                            onPress={()=>this.onDecQty(item, index)}
+                        >
                             <Icon name='ios-remove'/>
                         </TouchableOpacity>
                         <Text style={{flex:1, textAlign:'center' }} >{item.orderQty}</Text>
-                        <TouchableOpacity style={{flex:1, borderWidth:1, alignItems:'center', borderRadius:7}} >
+                        <TouchableOpacity
+                            style={{flex:1, borderWidth:1, alignItems:'center', borderRadius:7}}
+                            onPress={()=>this.onIncQty(item, index)}
+                        >
                             <Icon name='ios-add'/>
                         </TouchableOpacity>
                     </Body>
                     <Right style={{flex:4, alignItems:'center'}}>
-                    <Text style={{flex:1, textAlignVertical:'center',fontFamily:'Nunito-Regular', fontSize:14 }} >₹{item.orderPrice}</Text>
+                        <Text style={{flex:1, textAlignVertical:'center',fontFamily:'Nunito-Regular', fontSize:14 }} >₹{item.orderPrice}</Text>
                     </Right> 
                 </Item>
             </View>
@@ -80,7 +100,7 @@ class ShopScreen extends React.Component {
                             <FlatList
                                 showsVerticalScrollIndicator={true}
                                 data={this.state.cartList}
-                                renderItem={({item})=>this.renderItem(item)}
+                                renderItem={({item, index})=>this.renderItem(item, index)}
                                 keyExtractor={({index})=>index}
                             />
                         </View>
@@ -94,7 +114,7 @@ class ShopScreen extends React.Component {
                                 </View>
                             </View>
                             <View style={{flex:1, flexDirection:'row', backgroundColor:'#44F', alignItems:'center'}} >
-                                <TouchableOpacity style={{flex:1, flexDirection:'row', padding:15}} onPress={()=>{this.props.navigation.navigate('Review')}} >
+                                <TouchableOpacity style={{flex:1, flexDirection:'row', padding:15}} onPress={()=>{this.props.navigation.navigate('Review', {cartList: this.state.cartList, cartTotal: this.state.cartTotal})}} >
                                     <View style={{flex:5, flexDirection:'row', justifyContent:'center'}}>
                                         <Text style={{fontFamily:'Nunito-ExtraBold', fontSize:18, color:'white'}} >Review Order </Text>
                                     </View>

@@ -3,16 +3,50 @@ import {Content, Container, Item, Left, Body, Right, Icon, Button, Input, Label}
 import {View, Text, StatusBar, Platform, Image, TouchableOpacity, FlatList} from 'react-native';
 import {BarCodeScanner} from 'expo';
 
-const list = [{name:'Big Bazaar'},{name:'D Mart'},{name:'V Mart'},{name:'Trends'},{name:'Big Bazaar'},{name:'D Mart'},{name:'V Mart'},{name:'Trends'},{name:'Big Bazaar'},{name:'D Mart'},{name:'V Mart'},{name:'Trends'}]
-
 class ReviewScreen extends React.Component {
     constructor(props){
         super(props);
         this.state={
-            showModal:false
+            cartList:[],
+            cartTotal:0,
+            orderTotal: 0
         }
     }
-      renderItem(item){
+
+    componentWillMount() {
+        this.setState({
+            cartList: this.props.navigation.state.params.cartList,
+            cartTotal:this.props.navigation.state.params.cartTotal,
+            orderTotal: this.props.navigation.state.params.cartTotal
+        });
+    }
+
+    onIncQty(item, index) {
+        if (item.orderQty<item.qty) {
+            let newList = this.state.cartList;
+            newList[index] = {...item, orderQty: item.orderQty+1, orderPrice: item.orderPrice+item.price}
+            this.setState({
+                cartList: _.cloneDeep(newList),
+                cartTotal: this.state.cartTotal+item.price,
+                orderTotal: this.state.cartTotal+item.price
+            });
+        }
+    }
+
+    onDecQty(item, index) {
+        if (item.orderQty>0) {
+            let newList = this.state.cartList;
+            newList[index] = {...item, orderQty: item.orderQty-1, orderPrice: item.orderPrice-item.price}
+            this.setState({
+                cartList: _.cloneDeep(newList),
+                cartTotal: this.state.cartTotal-item.price,
+                orderTotal: this.state.cartTotal-item.price
+            });
+        }
+    }
+
+
+    renderItem(item, index){
     return (
       <View>
           <Item>
@@ -31,16 +65,22 @@ class ReviewScreen extends React.Component {
                 </Text>
               </Left>
               <Body style={{flex:3, flexDirection:'row', justifyContent:'center', alignItems:'center', marginHorizontal:10 }} >
-                  <TouchableOpacity style={{flex:1, borderWidth:1, alignItems:'center', borderRadius:7 }} >
+                  <TouchableOpacity
+                    style={{flex:1, borderWidth:1, alignItems:'center', borderRadius:7 }}
+                    onPress={()=>this.onDecQty(item, index)}
+                  >
                       <Icon name='ios-remove'/>
                   </TouchableOpacity>
-                  <Text style={{flex:1, textAlign:'center' }} >10</Text>
-                  <TouchableOpacity style={{flex:1, borderWidth:1, alignItems:'center', borderRadius:7}} >
+                  <Text style={{flex:1, textAlign:'center' }} >{item.orderQty}</Text>
+                  <TouchableOpacity
+                    style={{flex:1, borderWidth:1, alignItems:'center', borderRadius:7}}
+                    onPress={()=>this.onIncQty(item, index)}
+                  >
                       <Icon name='ios-add'/>
                   </TouchableOpacity>
               </Body>
               <Right style={{flex:4, alignItems:'center'}}>
-                <Text style={{flex:1, textAlignVertical:'center',fontFamily:'Nunito-Regular', fontSize:14 }} >₹10000</Text>
+                <Text style={{flex:1, textAlignVertical:'center',fontFamily:'Nunito-Regular', fontSize:14 }} >₹{item.orderPrice}</Text>
               </Right> 
           </Item>
       </View>
@@ -59,8 +99,8 @@ class ReviewScreen extends React.Component {
                             <View style={{flex:5}} >
                                 <FlatList
                                     showsVerticalScrollIndicator={true}
-                                    data={list}
-                                    renderItem={({item})=>this.renderItem(item)}
+                                    data={this.state.cartList}
+                                    renderItem={({item, index})=>this.renderItem(item, index)}
                                     keyExtractor={({index})=>index}
                                 />
                             </View>
@@ -73,7 +113,7 @@ class ReviewScreen extends React.Component {
                                 <Text style={{fontFamily:'Nunito-ExtraBold', fontSize:22, color:'#44F', textAlignVertical:'center'}} >Cart Total : </Text>
                             </View>
                             <View style={{flex:1, flexDirection:'row', justifyContent:'flex-end'}}>
-                                <Text style={{fontFamily:'Nunito-ExtraBold', fontSize:22, color:'#44F', textAlignVertical:'center'}}>₹100000</Text>
+                                <Text style={{fontFamily:'Nunito-ExtraBold', fontSize:22, color:'#44F', textAlignVertical:'center'}}>₹{this.state.cartTotal}</Text>
                             </View>
                         </View>
                     </View>
@@ -95,7 +135,7 @@ class ReviewScreen extends React.Component {
                                 <Text style={{fontFamily:'Nunito-ExtraBold', fontSize:22, color:'#44F', textAlignVertical:'center'}} >Order Total </Text>
                             </View>
                             <View style={{flex:1, flexDirection:'row', justifyContent:'flex-end'}}>
-                                <Text style={{fontFamily:'Nunito-ExtraBold', fontSize:22, color:'#44F', textAlignVertical:'center'}}>₹100000</Text>
+                                <Text style={{fontFamily:'Nunito-ExtraBold', fontSize:22, color:'#44F', textAlignVertical:'center'}}>₹{this.state.orderTotal}</Text>
                             </View>
                         </View>
                     </View>
