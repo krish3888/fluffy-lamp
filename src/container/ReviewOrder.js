@@ -142,7 +142,7 @@ class ReviewScreen extends React.Component {
 
                     <View style={{flex:1, flexDirection:'row', backgroundColor:'#44F'}} >
                         <TouchableOpacity style={{flex:1, flexDirection:'row', padding:15}}
-                            onPress={()=>this.props.navigation.navigate('Checkout')}
+                            onPress={()=>this.props.navigation.navigate('Checkout', {orderTotal:this.state.orderTotal, cartList:this.state.cartList})}
                         >
                             <View style={{flex:5, flexDirection:'row', justifyContent:'center'}}>
                                 <Text style={{fontFamily:'Nunito-ExtraBold', fontSize:18, color:'white'}} >Proceed to checkout </Text>

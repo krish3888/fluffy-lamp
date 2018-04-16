@@ -22,18 +22,18 @@ class CheckoutScreen extends React.Component {
                         style={{flex:1, borderRadius:10}}
                     >
                         <TouchableOpacity style={{flex:1, alignItems:'center', justifyContent:'center'}}
-                            onPress={()=>this.props.navigation.navigate('Invoice')}
+                            onPress={()=>this.props.navigation.navigate('Invoice', {orderTotal:this.props.navigation.state.params.orderTotal, cartList:this.props.navigation.state.params.cartList})}
                         >
                                 <View>
                                     <Text style={{fontFamily:'Nunito-SemiBold', textAlign:'center', fontSize:20, color:'#EEE'}} >
-                                        Pay <Text  style={{textAlign:'center', fontSize:24, color:'#4AF'}} >₹10000</Text>  with wallet
+                                        Pay <Text  style={{textAlign:'center', fontSize:24, color:'#4AF'}} ></Text>  with wallet
                                     </Text>
                                 </View>
                                 <View>
-                                    <Text style={{fontFamily:'Nunito-SemiBold', textAlign:'center', fontSize:20, color:'#EEE'}} >
+                                    {/* <Text style={{fontFamily:'Nunito-SemiBold', textAlign:'center', fontSize:20, color:'#EEE'}} >
                                     available wallet balance
-                                    </Text>
-                                    <Text style={{fontFamily:'Nunito-SemiBold', textAlign:'center', fontSize:24, color:'#4AF'}} >₹10000</Text>
+                                    </Text> */}
+                                    <Text style={{fontFamily:'Nunito-SemiBold', textAlign:'center', fontSize:24, color:'#4AF'}} ></Text>
                                 </View>
                         </TouchableOpacity>
                     </LinearGradient>
@@ -43,10 +43,10 @@ class CheckoutScreen extends React.Component {
                         colors={['#4c669f', '#3b5998', '#052f6a']}
                         style={{flex:1, borderRadius:10}}
                     >
-                        <TouchableOpacity style={{flex:1, alignItems:'center', justifyContent:'center'}} >
+                        <TouchableOpacity style={{flex:1, alignItems:'center', justifyContent:'center'}} onPress={()=>alert('feature coming soon!!')}>
                             <View>
                                 <Text style={{fontFamily:'Nunito-SemiBold', textAlign:'center', fontSize:20, color:'#EEE'}} >
-                                    Pay <Text style={{textAlign:'center', fontSize:24, color:'#4AF'}} >₹10000</Text> cash
+                                    Pay <Text style={{textAlign:'center', fontSize:24, color:'#4AF'}} ></Text> cash
                                 </Text>
                             </View>
                         </TouchableOpacity>

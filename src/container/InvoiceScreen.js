@@ -3,7 +3,6 @@ import {Content, Container, Item, Left, Body, Right, Icon, Button, Input, Label}
 import {View, Text, StatusBar, Platform, Image, TouchableOpacity, FlatList} from 'react-native';
 import {BarCodeScanner} from 'expo';
 
-const list = [{name:'Big Bazaar'},{name:'D Mart'},{name:'V Mart'},{name:'Trends'},{name:'Big Bazaar'},{name:'D Mart'},{name:'V Mart'},{name:'Trends'},{name:'Big Bazaar'},{name:'D Mart'},{name:'V Mart'},{name:'Trends'}]
 
 class InvoiceScreen extends React.Component {
     constructor(props){
@@ -32,7 +31,7 @@ class InvoiceScreen extends React.Component {
                 </Text>
               </Left>
               <Right style={{flex:4, alignItems:'center'}}>
-                <Text style={{flex:1, textAlignVertical:'center',fontFamily:'Nunito-Regular', fontSize:14 }} >₹10000</Text>
+                <Text style={{flex:1, textAlignVertical:'center',fontFamily:'Nunito-Regular', fontSize:14 }} >₹{item.orderPrice}</Text>
               </Right> 
           </Item>
       </View>
@@ -51,7 +50,7 @@ class InvoiceScreen extends React.Component {
                             <View style={{flex:5}} >
                                 <FlatList
                                     showsVerticalScrollIndicator={true}
-                                    data={list}
+                                    data={this.props.navigation.state.params.cartList}
                                     renderItem={({item})=>this.renderItem(item)}
                                     keyExtractor={({index})=>index}
                                 />
@@ -65,7 +64,7 @@ class InvoiceScreen extends React.Component {
                                 <Text style={{fontFamily:'Nunito-ExtraBold', fontSize:22, color:'#44F', textAlignVertical:'center'}} >Order Total </Text>
                             </View>
                             <View style={{flex:1, flexDirection:'row', justifyContent:'flex-end'}}>
-                                <Text style={{fontFamily:'Nunito-ExtraBold', fontSize:22, color:'#44F', textAlignVertical:'center'}}>₹100000</Text>
+                                <Text style={{fontFamily:'Nunito-ExtraBold', fontSize:22, color:'#44F', textAlignVertical:'center'}}>₹{this.props.navigation.state.params.orderTotal}</Text>
                             </View>
                         </View>
                     </View>
