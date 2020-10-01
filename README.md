@@ -98,7 +98,7 @@ This project is set up to use [jest](https://facebook.github.io/jest/) for tests
 
 You can configure some of Create React Native App's behavior using environment variables.
 
-### Configuring Packager IP Address
+### Configuring Packager IP Address--
 
 When starting your project, you'll see something like this for your project URL:
 
@@ -157,7 +157,7 @@ $ npm i -g exp
 $ exp publish
 ```
 
-### Building an Expo "standalone" app
+### Building an Expo "standalone" app--
 
 You can also use a service like [Expo's standalone builds](https://docs.expo.io/versions/latest/guides/building-standalone-apps.html) if you want to get an IPA/APK for distribution without having to build the native code yourself.
 
@@ -199,7 +199,7 @@ If this works, but you're still unable to load your app by scanning the QR code,
 
 If you're not able to load the `http` URL in your phone's web browser, try using the tethering/mobile hotspot feature on your phone (beware of data usage, though), connecting your computer to that WiFi network, and restarting the packager.
 
-### iOS Simulator won't open
+### iOS Simulator won't open--
 
 If you're on a Mac, there are a few errors that users sometimes see when attempting to `npm run ios`:
 
@@ -213,7 +213,7 @@ There are a few steps you may want to take to troubleshoot these kinds of errors
 2. Open Xcode's Preferences, the Locations tab, and make sure that the `Command Line Tools` menu option is set to something. Sometimes when the CLI tools are first installed by Homebrew this option is left blank, which can prevent Apple utilities from finding the simulator. Make sure to re-run `npm/yarn run ios` after doing so.
 3. If that doesn't work, open the Simulator, and under the app menu select `Reset Contents and Settings...`. After that has finished, quit the Simulator, and re-run `npm/yarn run ios`.
 
-### QR Code does not scan
+### QR Code does not scan--
 
 If you're not able to scan the QR code, make sure your phone's camera is focusing correctly, and also make sure that the contrast on the two colors in your terminal is high enough. For example, WebStorm's default themes may [not have enough contrast](https://github.com/react-community/create-react-native-app/issues/49) for terminal QR codes to be scannable with the system barcode scanners that the Expo app uses.
 
